@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Cormorant';
+    src: local('Cormorant'),
+    url("./fonts/Cormorant/Cormorant-SemiBoldItalic.ttf") format('truetype');
+}
+
+.font-cormorant {
+    font-family: "Cormorant", sans-serif;
+}
