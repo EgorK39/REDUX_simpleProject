@@ -4,10 +4,13 @@ import App from "./components/App";
 import "./fonts/Cormorant/Cormorant-SemiBoldItalic.ttf";
 import "./index.css";
 import {legacy_createStore as createStore} from "redux";
+import ReduxApp from "./redux/ReduxApp";
+import {Provider} from "react-redux";
 
+const initialState = ["redux", "react"];
 const store = createStore(changeStore);
 
-function changeStore(state = [], action) {
+function changeStore(state = initialState, action) {
     console.log("changeStore", state, "action", action);
     switch (action.type) {
         case "WRITE":
@@ -23,28 +26,12 @@ function changeStore(state = [], action) {
 console.log("store", store);
 console.log("store.getState()", store.getState());
 
-const items = document.querySelector(".testUl");
-const testButton = document.querySelector(".testButton");
-const inputValue = document.querySelector(".testInput");
 
-
-store.subscribe(() => {
-    console.log(store.getState());
-    items.innerHTML = "";
-    inputValue.value = "";
-    store.getState().map(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        items.appendChild(li);
-    });
-
-});
-
-testButton.addEventListener("click", () => {
-    console.log("inputValue", inputValue);
-    store.dispatch({type: "WRITE", payload: inputValue.value});
-
-});
-
-
-reactDOM.render(<App/>, document.getElementById("root"));
+reactDOM.render(
+    <>
+        <Provider store={store}>
+            <ReduxApp/>
+        </Provider>
+        <App/>
+    </>,
+    document.getElementById("root"));
