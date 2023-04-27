@@ -22,11 +22,16 @@ function changeStore(state = [], action) {
 
 console.log("store", store);
 console.log("store.getState()", store.getState());
+
+const items = document.querySelector(".testUl");
+const testButton = document.querySelector(".testButton");
+const inputValue = document.querySelector(".testInput");
+
+
 store.subscribe(() => {
     console.log(store.getState());
-    const items = document.querySelector(".testUl");
     items.innerHTML = "";
-    document.querySelector(".testInput").value = "";
+    inputValue.value = "";
     store.getState().map(item => {
         const li = document.createElement("li");
         li.textContent = item;
@@ -35,11 +40,9 @@ store.subscribe(() => {
 
 });
 
-const testButton = document.querySelector(".testButton");
 testButton.addEventListener("click", () => {
-    const inputValue = document.querySelector(".testInput").value;
     console.log("inputValue", inputValue);
-    store.dispatch({type: "WRITE", payload: inputValue});
+    store.dispatch({type: "WRITE", payload: inputValue.value});
 
 });
 
